@@ -1,0 +1,82 @@
+html {
+    height: 100%;
+    min-height: 100px;
+    width: 100%;
+    font-size: 1em;
+}
+
+body {
+    height: 100%;
+    min-height: 500px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(31, 245, 255, 0.15);
+    font-family: 'Handlee', cursive;
+}
+
+#header {
+    height: 120px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: rgb(109, 156, 232);
+    background: -webkit-linear-gradient(left, rgb(0, 255, 255), rgb(0, 255, 10));
+    border-bottom: solid 1px
+}
+
+#header h1 {
+    padding: 10px;
+    text-align: center;
+    margin: 0;
+    font-family: 'Cabin Sketch', cursive;
+    font-size: 3em;
+    color: rgb(38, 96, 132);
+}
+
+#username {
+    position: relative;
+    margin: 15px;
+    text-align: right;
+    font-family: 'Handlee', cursive;
+    top: -5em;
+}
+
+#username a {
+    text-decoration: none;
+    color: rgba(230, 53, 53, 0.5);
+}
+
+#username a:hover {
+    text-decoration: none;
+    color: rgb(230, 53, 53);
+}
+
+#main {
+    padding: 10em;
+    min-height: 500px;
+}
+
+input [type="email"] {
+    padding: 1em;
+    width: 200px;
+}
+
+footer {
+    width: 100%;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    clear: both;
+    background: rgb(0, 80, 160);
+    vertical-align: top;
+
+}
+
+footer a {
+    text-decoration: none;
+}
+
+
+@media(max-width: 500px) {}
