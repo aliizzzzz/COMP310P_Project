@@ -109,7 +109,7 @@ if(isset($_POST["submit"])) {
                 <input type="email" name="email" value="<?php echo $email; ?>" placeholder="Email*">
                 <input type="password" name="password" value="<?php echo $password;?>" placeholder="Password*"><br/>
                 <input type="tel" name="phone_number" value="<?php echo $phoneNumber; ?>" size="11" placeholder="Phone Number*"><br/>
-                <input type="number" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="House Number"><br/>
+                <input type="text" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="House Number"><br/>
                 <input type="text" name="street_name" value="<?php echo $streetName; ?>" placeholder="Street*"><br/>
                 <input type="text" name="city" value="<?php echo $city; ?>" placeholder="City"><br/>
                 <input type="text" name="postcode" value="<?php echo $postcode;?>" placeholder="Postcode*"><br/>
