@@ -1,0 +1,185 @@
+html {
+    height: 100%;
+    min-height: 100px;
+    width: 100%;
+    font-size: 1em;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(255, 255, 255, 0.44);
+    font-family: 'Adamina', serif;
+}
+
+header {
+    height: 120px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: url("header.jpeg");
+/*
+    background: linear-gradient(left, rgb(0, 245, 255), rgba(0, 137, 255, 0.6));
+    background: -webkit-linear-gradient(left, rgb(0, 245, 255), rgba(0, 137, 255, 0.6));
+    background: -moz-linear-gradient(left, rgb(0, 245, 255), rgba(0, 137, 255, 0.6));
+*/
+    border-bottom: solid 1px
+}
+
+header h1 {
+    padding: 10px 10px 0 10px;
+    margin: 0;
+    font-size: 3em;
+    color: rgb(67, 67, 67);
+}
+
+header li {
+    display: inline;
+    bottom: 0;
+}
+
+#username {
+    position: relative;
+    margin: 15px;
+    text-align: right;
+    top: -5em;
+    color: rgb(67, 67, 67);
+}
+
+#username a {
+    color: rgba(230, 53, 53, 0.5);
+    text-decoration: none;
+    transition: color 0.3s;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+}
+
+#username a:hover {
+    color: rgb(230, 53, 53);
+    text-decoration: underline;
+    transition: color 0.3s;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+    background: rgba(173, 173, 173, 0.76);
+}
+#main {
+    padding: 0;
+    height: calc(100% - 190px);
+    max-height: inherit;
+    background: url("background.jpeg");
+    z-index: -1;
+
+/*    border: solid;*/
+}
+
+.page {
+    margin: 2em 5em;
+    height: 100%;
+    float: left;
+}
+
+.page h3 {
+    margin: 5px;
+    color: rgb(65, 65, 65)
+}
+
+.page a {
+    color: rgb(109, 109, 109);
+    text-decoration: none;
+    transition: color 0.3s;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+}
+
+.page a:hover{
+    color: rgb(87, 87, 87);
+    text-decoration: underline;
+    transition: color 0.3s;
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+}
+
+input {
+    margin: 5px;
+    padding: 10px;
+    width: 200px;
+    border: solid 1px rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    font-family: inherit;
+    font-weight:900;
+    font-size: 15px;
+    background: rgba(168, 168, 168, 0.7);
+}
+
+input::-webkit-input-placeholder {
+color: rgb(95, 95, 95) !important;
+}
+input:-moz-placeholder {
+color: rgb(95, 95, 95) !important;
+}
+
+input::-moz-placeholder {
+color: rgb(95, 95, 95) !important;
+}
+
+input:-ms-input-placeholder {
+color: rgb(95, 95, 95) !important;
+}
+
+input[type="submit"]{
+    width: 100px;
+    transition: background 0.3s;
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
+}
+
+input[type="submit"]:hover {
+    background: rgb(100, 100, 100);
+    cursor: pointer;
+    transition: background 0.3s;
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
+}
+
+footer {
+    position: fixed;
+    display: block;
+    width: 100%;
+    bottom: 0;
+    padding: 10px;
+    bottom: 0;
+    clear: both;
+    background: rgb(195, 222, 212);
+    vertical-align: top;
+    font-family: 'Adamina', serif;
+}
+
+footer a {
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+footer img {
+    margin: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+footer p {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 10px;
+}
+
+
+@media(max-width: 500px) {}
