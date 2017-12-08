@@ -1,22 +1,15 @@
-<?php require_once("Includes/db_connection.php"); ?>
-<!DOCTYPE HTML>
-<html lang = "en">
+<?php require_once("includes/session.php"); ?>
+<?php require_once("includes/db_connection.php"); ?>
+<?php require_once("includes/functions.php"); ?>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial scale=1">
-    <link rel="stylesheet" href="Includes/styles.css">
 
-    <title>Welcome!</title>
 
-</head>
-<body></body>
-<footer></footer>
 
-</html>
-
-<?php
-    // close db connection
-    mysqli_close($connection);
-?>
+<?php include("includes/header.php");?>
+<div id="main">
+    <div id="container">
+        <div class="page">
+        </div>
+    </div>
+</div>
+<?php include("includes/footer.php");?>
