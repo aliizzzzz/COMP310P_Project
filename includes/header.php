@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Adamina" rel="stylesheet">
-    <link rel="stylesheet" href="Includes/styles.css">
+    <link rel="stylesheet" href="includes/styles.css">
     <title>Bright Tutors</title>
 </head>
 
