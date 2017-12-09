@@ -16,7 +16,7 @@
         <h1>Bright Tutors</h1>
         <div id="username">Welcome Alireza!<a href="logout.php"> logout</a></div>
         <ul>
-            <li><a>Home</a></li>
-            <li><a>Lessons</a></li>
+            <a href="index.php"><li>Home</li></a>
+            <a href="lessons.php"><li>Lessons</li></a>
         </ul>
     </header>
