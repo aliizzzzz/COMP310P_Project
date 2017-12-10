@@ -1,15 +1,12 @@
 <?php require_once("includes/session.php"); ?>
-<?php require_once("includes/db_connection.php"); ?>
 <?php require_once("includes/functions.php"); ?>
 
-
-
-
-<?php include("includes/header.php");?>
-<div id="main">
-    <div id="container">
-        <div class="page">
-        </div>
-    </div>
-</div>
-<?php include("includes/footer.php");?>
+<?php
+	// v1: simple logout
+	// session_start();
+	$_SESSION["user_id"]       = null;
+	$_SESSION["first_name"]    = null;
+    $_SESSION["email"]         = null;
+    $_GET["first_name"]        = null;
+	redirect_to("login.php");
+?>
