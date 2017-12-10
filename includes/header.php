@@ -18,19 +18,11 @@
         <?php
 
         if (isset($_SESSION["first_name"])) {
-            echo "<div id=\"username\">Welcome " . "{$_SESSION["first_name"]}" . " ! <a href=\"logout.php\">logout</a></div>";
+            echo "<div id=\"username\">Hello " . "{$_SESSION["first_name"]}" . " ! <a href=\"logout.php\" onclick=\"return confirm('Are you sure?')\">logout</a></div>";
         } else {
             echo "<div id=\"username\">Please log in <a href=\"login.php\"> here</a></div>";
         }
 
-        function create_url($path) {
-        if(isset($_SESSION["user_id"])){
-            $url = $path . '?first_name=' . $_SESSION["first_name"];
-            return $url;
-        } else
-            $url = "";
-            return $url;
-        }
         ?>
         <ul>
             <a href="<?php echo create_url('index.php'); ?>">

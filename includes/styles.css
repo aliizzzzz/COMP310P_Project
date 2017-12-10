@@ -112,7 +112,7 @@ header ul a:hover {
 .page {
     margin: 2em 4.5em;
     height: 70%;
-    min-height: 500px;
+    min-height: 540px;
     width: 30%;
     min-width: 450px;
     display: inline;
@@ -143,6 +143,9 @@ header ul a:hover {
 
 .message {
 
+    padding: 10px 10px 5px 8px;
+    font-weight: bold;
+    color: rgb(71, 92, 121);
 }
 
 .error {

@@ -133,9 +133,21 @@
 		return isset($_SESSION['user_id']);
 	}
 
+    function create_url($path) {
+        if(isset($_SESSION["user_id"])){
+            $url = $path . '?first_name=' . $_SESSION["first_name"];
+            return urlencode($url);
+        } else
+            $url = "";
+            return $url;
+        }
+
     function confirm_logged_in() {
 		if (!logged_in()) {
 			redirect_to ("login.php");
 		}
 	}
+
+
+
 ?>

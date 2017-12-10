@@ -105,7 +105,7 @@ if(isset($_POST["submit"])) {
                 <input type="text" name="first_name" value="<?php echo htmlentities($firstName)?>" placeholder="First Name*">
                 <input type="text" name="last_name" value="<?php echo htmlentities($lastName); ?>" placeholder="Last Name"><br/>
                 <input type="email" name="email" value="<?php echo htmlentities($email); ?>" placeholder="Email*">
-                <input type="password" name="password" value="<?php echo htmlentities($password);?>" placeholder="Password*"><br/>
+                <input type="password" name="password" value="<?php echo htmlentities($password);?>" placeholder="Password*"><br/><br/>
                 <input type="tel" name="phone_number" value="<?php echo htmlentities($phoneNumber); ?>" size="11" placeholder="Phone Number*"><br/>
                 <input type="text" name="house_number" value="<?php echo htmlentities($houseNumber); ?>" placeholder="House Number"><br/>
                 <input type="text" name="street_name" value="<?php echo htmlentities($streetName); ?>" placeholder="Street*"><br/>
