@@ -3,8 +3,25 @@
 
     $errors = array();
 
+    // Fetching data from database
+    function fetch_user_info($user_id) {
+        global $connection;
+
+        $query  = "SELECT u.first_name, u.last_name, ";
+        $query .= "u.email, p.phone_number, ";
+        $query .= "p.house_number, p.street_name, ";
+        $query .= "p.city, p.postcode FROM ";
+        $query .= "personal_details p JOIN users u ";
+        $query .= "ON p.postcode = u.postcode ";
+        $query .= "WHERE u.id = '{$user_id}'";
+
+        $user_info = mysqli_query($connection, $query);
+        confirm_query($user_info);
+        return $user_info;
+    }
+
     // Form validation functions
-    function fieldname_as_text ($fieldname) {
+    function fieldname_as_text($fieldname) {
         $fieldname = str_replace("_", " ", $fieldname);
         $fieldname = ucfirst($fieldname);
         return $fieldname;
@@ -110,7 +127,7 @@
 		}
 	}
 
-    function login($email, $password) {
+    function verify_login($email, $password) {
 
         // Find user
 		$user = find_user_by_email($email);
@@ -135,8 +152,8 @@
 
     function create_url($path) {
         if(isset($_SESSION["user_id"])){
-            $url = $path . '?first_name=' . $_SESSION["first_name"];
-            return urlencode($url);
+            $url = $path . '?first_name=' . urlencode($_SESSION["first_name"]);
+            return $url;
         } else
             $url = "";
             return $url;

@@ -7,7 +7,9 @@
 <?php include("includes/header.php");?>
 <div id="main">
     <div id="container">
-        <div class="page">
+        <h2>You can book your lessons here!</h2>
+        <div class="page" id="lessons">
+            hello
         </div>
     </div>
 </div>

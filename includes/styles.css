@@ -62,7 +62,7 @@ header ul a {
 header ul a:hover {
     background-clip: padding-box;
     cursor: pointer;
-    background:rgb(150, 191, 176);
+    background: rgb(150, 191, 176);
     transition: background 0.3s;
     -webkit-transition: background .3s;
     -moz-transition: background .3s;
@@ -109,6 +109,13 @@ header ul a:hover {
     background: rgba(173, 173, 173, 0.76);
 }
 
+h2 {
+    text-align: center;
+    padding: 5px 0 0 0;
+    margin: 0;
+    color: rgb(74, 88, 83)
+}
+
 .page {
     margin: 2em 4.5em;
     height: 70%;
@@ -117,7 +124,6 @@ header ul a:hover {
     min-width: 450px;
     display: inline;
     float: left;
-/*    overflow: auto;*/
 }
 
 .page h3 {
@@ -125,6 +131,26 @@ header ul a:hover {
     color: rgb(65, 65, 65)
 }
 
+.page #user_info {
+    font-weight: bold;
+    font-size: 15px;
+    height: 320px;
+    width: 450px;
+    margin: 10px 5px 5px 8px;
+    padding: 10px;
+    color: rgb(85, 85, 85);
+    border: solid;
+}
+
+.page #user_info p {
+    margin: 10px auto;
+    float: left;
+    width: 45%;
+}
+
+.page #user_info #info {
+    color: rgb(78, 101, 95);
+}
 .page a {
     color: rgb(109, 109, 109);
     text-decoration: none;
@@ -139,6 +165,20 @@ header ul a:hover {
     transition: color 0.3s;
     -webkit-transition: color .3s;
     -moz-transition: color .3s;
+}
+
+#home {
+    margin-top: 1em;
+    align-self: center;
+}
+
+#lessons {
+    margin: 1em auto;
+    height: 70%;
+    min-height: 540px;
+    width: 80%;
+    min-width: 450px;
+    border: solid;
 }
 
 .message {

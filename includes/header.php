@@ -8,6 +8,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Adamina" rel="stylesheet">
     <link rel="stylesheet" href="includes/styles.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <title>Bright Tutors</title>
 </head>
 

@@ -32,7 +32,7 @@ if(isset($_POST["submit"])) {
         $hashed_pass    = password_hash($password, PASSWORD_BCRYPT);
         $postcode       = strtoupper(str_replace(" ", "", mysql_prep($_POST["postcode"])));
         $city           = mysql_prep(ucfirst($_POST["city"]));
-        $streetName     = mysql_prep(ucfirst($_POST["street_name"]));
+        $streetName     = mysql_prep(ucwords($_POST["street_name"]));
         $houseNumber    = mysql_prep($_POST["house_number"]);
         $phoneNumber    = mysql_prep($_POST["phone_number"]);
 

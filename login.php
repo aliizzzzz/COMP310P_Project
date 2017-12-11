@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
         $email      = $_POST["email"];
         $password   = $_POST["password"];
 
-        $found_user = login($email, $password);
+        $found_user = verify_login($email, $password);
 
         if($found_user) {
             //Mark user as logged in
@@ -34,10 +34,12 @@ if (isset($_POST["submit"])) {
 
         } else {
             // Log in failed
-            $_SESSION["message"] = "Log in failed! try again";
+            $_SESSION["message"] = "Incorrect email/password; try again!";
         }
 
 
+    } else {
+        $email      = $_POST["email"];
     }
 } else {
     // This is probably a GET request
