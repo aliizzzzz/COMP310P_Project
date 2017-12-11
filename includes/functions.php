@@ -1,10 +1,10 @@
 <?php
-// AUTHOR: Alireza MEGHDADI, includes adaptations from LYNDA course PHP AND MYSQL ESSENTIAL TRAINING by KEVIN SKOGLUND
+// AUTHOR: Alireza MEGHDADI, includes adaptations from LYNDA course PHP AND MYSQL ESSENTIAL TRAINING by KEVIN SKOGLUND.
 
     $errors = array();
 
     // Fetching data from database
-    function fetch_user_info($user_id) {
+    function print_user_info($user_id) {
         global $connection;
 
         $query  = "SELECT u.first_name, u.last_name, ";
@@ -18,6 +18,83 @@
         $user_info = mysqli_query($connection, $query);
         confirm_query($user_info);
         return $user_info;
+
+        $user_info_array = mysqli_fetch_assoc($user_info);
+        $output = "<div id=\"user_info\">\n";
+            foreach ($user_info_array as $field => $info) {
+                $output .= "<p>" . fieldname_as_text($field);
+                $output .= "</p>";
+                $output .= "<p id=\"info\">" . $info;
+                $output .= "</p>\n";
+            }
+            $output .= "</div>\n";
+        echo $output;
+    }
+
+    function print_teacher_info() {
+        global $connection;
+
+        $query  = "SELECT t.first_name, t.last_name, t.email, ";
+        $query .= "c.course_name as course FROM teachers t JOIN courses c ";
+        $query .= "ON t.id = c.teacher_id";
+
+        $teacher_set = mysqli_query($connection, $query);
+        confirm_query($teacher_set);
+
+        $teacher_info_array = mysqli_fetch_assoc($teacher_set);
+        $output  = "<tr>";
+        $output .= "<th>Teacher</th><th>Email</th><th>Course Taught</th>";
+        $output .= "</tr>";
+
+        while($teacher = mysqli_fetch_assoc($teacher_set)) {
+            $output .="<tr>";
+                foreach($teacher as $field => $data){
+                    $output .= "<td>" . $data . "</td>";
+                }
+            $output .="</tr>";
+
+        }
+        echo $output;
+    }
+
+    function fetch_session_info() {
+        global $connection;
+
+        $query  = "SELECT co.course_name as course, s.level, c.cost, ";
+        $query .= "s.date FROM sessions s JOIN courses co ";
+        $query .= "ON co.id = s.course_id JOIN cost c ON ";
+        $query .= "s.level = c.level ORDER BY s.date ASC";
+
+        $session_info = mysqli_query($connection, $query);
+        confirm_query($session_info);
+        return $session_info;
+    }
+
+    function print_sessions_table_headings(){
+        $session_array = mysqli_fetch_assoc(fetch_session_info());
+
+        $output  = "<tr>";
+        foreach($session_array as $field => $data){
+            $output .= "<th>" . fieldname_as_text($field) . "</th>";
+        }
+        $output .= "</tr>";
+        echo $output;
+    }
+
+    function print_sessions_table_info() {
+        $sesson_set = fetch_session_info();
+        while($session = mysqli_fetch_assoc($sesson_set)){
+            $output  = "<tr>";
+                foreach($session as $field => $data){
+                    if($field == "date"){
+                    $output .= "<td>" . date_format(date_create($data), "Y-M-d") . "</td>";
+                    } else {
+                    $output .= "<td>" . $data . "</td>";
+                    }
+                }
+            $output .= "</tr>";
+            echo $output;
+        }
     }
 
     // Form validation functions
@@ -164,7 +241,5 @@
 			redirect_to ("login.php");
 		}
 	}
-
-
 
 ?>
