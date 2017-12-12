@@ -98,6 +98,7 @@ if(isset($_POST["submit"])) {
 
 <div id="main">
     <div id="container">
+        <div class="page_container">
         <div class="page">
             <?php echo message(); ?>
             <form action="register.php" method="post">
@@ -116,6 +117,7 @@ if(isset($_POST["submit"])) {
         </div>
         <div class="page">
         <?php echo display_form_errors($errors); ?>
+        </div>
         </div>
     </div>
 </div>

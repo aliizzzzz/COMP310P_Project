@@ -2,6 +2,7 @@
 // AUTHOR: Alireza MEGHDADI, includes adaptations from LYNDA course PHP AND MYSQL ESSENTIAL TRAINING by KEVIN SKOGLUND.
 
     $errors = array();
+    $cost = null;
 
     // Fetching data from database
     function print_user_info($user_id) {
@@ -17,14 +18,13 @@
 
         $user_info = mysqli_query($connection, $query);
         confirm_query($user_info);
-        return $user_info;
 
         $user_info_array = mysqli_fetch_assoc($user_info);
         $output = "<div id=\"user_info\">\n";
             foreach ($user_info_array as $field => $info) {
-                $output .= "<p>" . fieldname_as_text($field);
+                $output .= "<p id=\"user_fields\">" . fieldname_as_text($field);
                 $output .= "</p>";
-                $output .= "<p id=\"info\">" . $info;
+                $output .= "<p>" . $info;
                 $output .= "</p>\n";
             }
             $output .= "</div>\n";
@@ -48,11 +48,10 @@
 
         while($teacher = mysqli_fetch_assoc($teacher_set)) {
             $output .="<tr>";
-                foreach($teacher as $field => $data){
-                    $output .= "<td>" . $data . "</td>";
-                }
+            $output .="<td>" . $teacher["first_name"] . " " . $teacher["last_name"] ."</td>";
+            $output .="<td>" . $teacher["email"] . "</td>";
+            $output .="<td>" . $teacher["course"] . "</td>";
             $output .="</tr>";
-
         }
         echo $output;
     }
@@ -60,7 +59,7 @@
     function fetch_session_info() {
         global $connection;
 
-        $query  = "SELECT co.course_name as course, s.level, c.cost, ";
+        $query  = "SELECT s.id, co.course_name as course, s.level, c.cost as 'cost (£)', ";
         $query .= "s.date FROM sessions s JOIN courses co ";
         $query .= "ON co.id = s.course_id JOIN cost c ON ";
         $query .= "s.level = c.level ORDER BY s.date ASC";
@@ -75,26 +74,48 @@
 
         $output  = "<tr>";
         foreach($session_array as $field => $data){
+            if ($field == "id") {
+                        continue;
+            }
             $output .= "<th>" . fieldname_as_text($field) . "</th>";
         }
-        $output .= "</tr>";
+        $output .= "<th></th>";
+        $output .= "</tr>\n";
         echo $output;
     }
 
+    // Function includes date handling; sessions cannot be booked less than 2 days
+    // prior to session date
     function print_sessions_table_info() {
-        $sesson_set = fetch_session_info();
-        while($session = mysqli_fetch_assoc($sesson_set)){
+        $session_set = fetch_session_info();
+
+        $sessions_array = array();
+        while($session = mysqli_fetch_assoc($session_set)){
+            $sessions_array[$session["id"]] = $session;
+
             $output  = "<tr>";
                 foreach($session as $field => $data){
+                    if ($field == "id") {
+                        continue;
+                    }
                     if($field == "date"){
                     $output .= "<td>" . date_format(date_create($data), "Y-M-d") . "</td>";
                     } else {
                     $output .= "<td>" . $data . "</td>";
                     }
                 }
-            $output .= "</tr>";
+            // Date handling, session id will be passed to the booking url
+            $date_diff = (strtotime($session["date"])-(strtotime(date("Y-m-d"))))/86400;
+                if ($date_diff > 1) {
+                    $output .= "<td id=\"book\"><a href=\"book.php?session_id={$session["id"]}\">Book</a></td>";
+                } else {
+                    $output .= "<td id=\"book\">Expired!</td>";
+                }
+            $output .= "</tr>\n";
             echo $output;
         }
+
+        $_SESSION["sessions"] = $sessions_array;
     }
 
     // Form validation functions

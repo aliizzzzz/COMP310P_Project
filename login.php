@@ -2,7 +2,6 @@
 <?php require_once("includes/db_connection.php"); ?>
 <?php require_once("includes/functions.php"); ?>
 <?php require_once("includes/password.php"); ?>
-
 <?php
 if (logged_in()){
     redirect_to("index.php?");
@@ -50,6 +49,7 @@ if (isset($_POST["submit"])) {
 <?php include("includes/header.php");?>
 <div id="main">
     <div id="container">
+        <div class="page_container">
         <div class="page">
             <?php echo message(); ?>
             <form action="login.php" method="post">
@@ -62,6 +62,7 @@ if (isset($_POST["submit"])) {
         <div class="page">
             <h3>Not a member yet? Register <a href="register.php">here</a></h3>
             <?php echo display_form_errors($errors); ?>
+        </div>
         </div>
     </div>
 </div>
