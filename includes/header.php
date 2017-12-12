@@ -18,13 +18,26 @@
 
         <?php
 
-        if (isset($_SESSION["first_name"])) {
-            echo "<div id=\"username\">Hello " . "{$_SESSION["first_name"]}" . " ! <a href=\"logout.php\" onclick=\"return confirm('Are you sure?')\">logout</a></div>";
+        if(isset($_SESSION["first_name"])) {
+            echo "<div id=\"username\">Hello " . "{$_SESSION["first_name"]}" . "! <a href=\"logout.php\" onclick=\"return confirm('Are you sure?')\">logout</a></div>";
         } else {
             echo "<div id=\"username\">Please log in <a href=\"login.php\"> here</a></div>";
         }
 
+        echo "<ul>";
+        if(isset($_SESSION["user_id"])) {
+            echo "<a href=\"" . create_url('index.php') . "\">
+                <li>Home</li>
+            </a>
+            <a href=\"" . create_url('lessons.php') . "\">
+                <li>Lessons</li>
+            </a>";
+        }
+        echo "</ul>";
+
         ?>
+
+<!--
         <ul>
             <a href="<?php echo create_url('index.php'); ?>">
                 <li>Home</li>
@@ -33,4 +46,5 @@
                 <li>Lessons</li>
             </a>
         </ul>
+-->
     </header>

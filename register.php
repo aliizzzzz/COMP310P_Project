@@ -9,6 +9,11 @@
 
 
 <?php
+
+if(logged_in()) {
+    redirect_to(create_url("index.php"));
+}
+
 // Process form
 if(isset($_POST["submit"])) {
 

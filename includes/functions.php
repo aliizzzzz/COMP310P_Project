@@ -21,45 +21,20 @@
 
         $user_info_array = mysqli_fetch_assoc($user_info);
         $output = "<div id=\"user_info\">\n";
-            foreach ($user_info_array as $field => $info) {
+            foreach ($user_info_array as $field => $data) {
                 $output .= "<p id=\"user_fields\">" . fieldname_as_text($field);
                 $output .= "</p>";
-                $output .= "<p>" . $info;
+                $output .= "<p>" . $data;
                 $output .= "</p>\n";
             }
             $output .= "</div>\n";
         echo $output;
     }
 
-    function print_teacher_info() {
-        global $connection;
-
-        $query  = "SELECT t.first_name, t.last_name, t.email, ";
-        $query .= "c.course_name as course FROM teachers t JOIN courses c ";
-        $query .= "ON t.id = c.teacher_id";
-
-        $teacher_set = mysqli_query($connection, $query);
-        confirm_query($teacher_set);
-
-        $teacher_info_array = mysqli_fetch_assoc($teacher_set);
-        $output  = "<tr>";
-        $output .= "<th>Teacher</th><th>Email</th><th>Course Taught</th>";
-        $output .= "</tr>";
-
-        while($teacher = mysqli_fetch_assoc($teacher_set)) {
-            $output .="<tr>";
-            $output .="<td>" . $teacher["first_name"] . " " . $teacher["last_name"] ."</td>";
-            $output .="<td>" . $teacher["email"] . "</td>";
-            $output .="<td>" . $teacher["course"] . "</td>";
-            $output .="</tr>";
-        }
-        echo $output;
-    }
-
     function fetch_session_info() {
         global $connection;
 
-        $query  = "SELECT s.id, co.course_name as course, s.level, c.cost as 'cost (£)', ";
+        $query  = "SELECT s.id, co.course_name as course, s.level, c.cost, ";
         $query .= "s.date FROM sessions s JOIN courses co ";
         $query .= "ON co.id = s.course_id JOIN cost c ON ";
         $query .= "s.level = c.level ORDER BY s.date ASC";
@@ -77,21 +52,25 @@
             if ($field == "id") {
                         continue;
             }
-            $output .= "<th>" . fieldname_as_text($field) . "</th>";
+            if ($field == "cost"){
+                $output .= "<th>Cost (&pound;)</th>";
+            } else {
+                $output .= "<th>" . fieldname_as_text($field) . "</th>";
+            }
         }
         $output .= "<th></th>";
         $output .= "</tr>\n";
         echo $output;
     }
 
-    // Function includes date handling; sessions cannot be booked less than 2 days
+    // Function includes date and cost handling; sessions cannot be booked less than 2 days
     // prior to session date
     function print_sessions_table_info() {
         $session_set = fetch_session_info();
 
         $sessions_array = array();
         while($session = mysqli_fetch_assoc($session_set)){
-            $sessions_array[$session["id"]] = $session;
+//            $sessions_array[$session["id"]] = $session;
 
             $output  = "<tr>";
                 foreach($session as $field => $data){
@@ -107,7 +86,7 @@
             // Date handling, session id will be passed to the booking url
             $date_diff = (strtotime($session["date"])-(strtotime(date("Y-m-d"))))/86400;
                 if ($date_diff > 1) {
-                    $output .= "<td id=\"book\"><a href=\"book.php?session_id={$session["id"]}\">Book</a></td>";
+                    $output .= "<td id=\"book\"><a href=\"book.php?first_name=" . urlencode($_SESSION["first_name"]) . "&session_id={$session["id"]}\">Book</a></td>";
                 } else {
                     $output .= "<td id=\"book\">Expired!</td>";
                 }
@@ -115,7 +94,76 @@
             echo $output;
         }
 
-        $_SESSION["sessions"] = $sessions_array;
+//        $_SESSION["sessions"] = $sessions_array;
+    }
+
+    // Session Booking
+    function book_session($user_id,$session_id) {
+        global $connection;
+
+        $query  = "INSERT INTO bookings (user_id, session_id) ";
+        $query .= "VALUES ({$user_id},{$user_id})";
+
+        $result = mysqli_query($connection,$query);
+        confirm_query($result);
+    }
+
+    function print_all_booked_sessions($user_id) {
+        global $connection;
+
+        $query  = "SELECT s.id, co.course_name as course, s.level, c.cost, ";
+        $query .= "s.date FROM sessions s JOIN courses co ";
+        $query .= "ON co.id = s.course_id JOIN cost c ON ";
+        $query .= "s.level = c.level ORDER BY s.date ASC";
+    }
+
+    function print_booked_session($session_id) {
+        global $connection;
+
+        $query  = "SELECT co.course_name, s.level, s.date, c.cost ";
+        $query .= "FROM courses co JOIN sessions s ON co.id = s.course_id ";
+        $query .= "JOIN cost c on c.level = s.level WHERE s.id = {$session_id}";
+
+        $booked_session = mysqli_query($connection, $query);
+        confirm_query($booked_session);
+
+        $output  = "";
+        while($session = mysqli_fetch_assoc($booked_session)) {
+
+            $date = date_format(date_create($session["date"]), "Y-M-d");
+            $output .= "<h3 id=\"booked_session\">Session Details</h3>";
+            $output .= "<p>" . $session["course_name"] ."</p>";
+            $output .= "<p>" . $session["level"] ."</p>";
+            $output .= "<p>" . $date ."</p>";
+            $output .= "<p>" . "&pound;" .$session["cost"] ."</p>";
+        }
+        echo $output;
+    }
+
+    function print_teacher_info($session_id) {
+        global $connection;
+
+        $query  = "SELECT t.first_name, t.last_name, t.email ";
+        $query .= "FROM teachers t JOIN courses c ";
+        $query .= "ON t.id = c.teacher_id JOIN sessions s ON ";
+        $query .= "c.id = s.course_id WHERE s.id = {$session_id}";
+
+        $teacher_set = mysqli_query($connection, $query);
+        confirm_query($teacher_set);
+
+        $output  = "";
+        while($teacher = mysqli_fetch_assoc($teacher_set)) {
+
+            $output .= "<h3 id=\"booked_session\">Teacher Details</h3>";
+            $output .= "<p>" . $teacher["first_name"] . " " . $teacher["last_name"] ."</p>";
+            $output .= "<p>" . $teacher["email"] . "</p>";
+        }
+        $output .= "<p>Please contact the teacher for payment!</p>";
+        echo $output;
+    }
+
+    function fetch_booked_sessions($user_id) {
+
     }
 
     // Form validation functions
@@ -253,7 +301,7 @@
             $url = $path . '?first_name=' . urlencode($_SESSION["first_name"]);
             return $url;
         } else
-            $url = "";
+            $url = $path;
             return $url;
         }
 

@@ -15,6 +15,7 @@
             </div>
             <div class="page" id="home">
                 <h3>Upcoming Sessons</h3>
+                <?php ?>
             </div>
         </div>
     </div>

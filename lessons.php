@@ -7,7 +7,7 @@
     <div id="container">
         <h2>You can book your lessons here!</h2>
         <div class="page_container">
-            <div class="page">
+            <div class="page" id="table">
                 <table>
                     <?php
                     print_sessions_table_headings();
@@ -15,13 +15,17 @@
                     ?>
                 </table>
             </div>
+            <!--
             <div class="page">
+                <div id="table">
                 <table>
                     <?php
-                        print_teacher_info();
+//                        print_teacher_info();
                     ?>
                 </table>
+                </div>
             </div>
+-->
         </div>
     </div>
 </div>
