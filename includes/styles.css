@@ -1,11 +1,13 @@
 html {
     height: 100%;
-    min-height: 100px;
+    min-height: 800px;
     width: 100%;
+    min-width: 1200px;
     font-size: 1em;
 }
 
 body {
+    display: block;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -16,41 +18,70 @@ body {
 }
 
 header {
-    height: 120px;
+    height: auto;
     width: 100%;
     margin: 0;
     padding: 0;
     text-align: center;
     background: url("header.jpeg");
-    /*
-    background: linear-gradient(left, rgb(0, 245, 255), rgba(0, 137, 255, 0.6));
-    background: -webkit-linear-gradient(left, rgb(0, 245, 255), rgba(0, 137, 255, 0.6));
-    background: -moz-linear-gradient(left, rgb(0, 245, 255), rgba(0, 137, 255, 0.6));
-*/
-    border-bottom: solid 1px
+    position: relative;
 }
 
 header h1 {
-    padding: 10px 10px 0 10px;
+    padding: 10px;
     margin: 0;
     font-size: 3em;
     color: rgb(67, 67, 67);
 }
 
-header li {
-    display: inline;
-    bottom: 0;
+header a {
+    text-decoration: none;
+}
+
+header ul {
+    display: table;
+    font-size: 1em;
+    table-layout: fixed;
+    width: 100%;
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 0 0;
+    border-bottom: solid 5px rgb(150, 191, 176);
+}
+
+header ul a {
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(27, 98, 98);
+    display: table-cell;
+    padding: 10px 0;
+    margin: 10px;
+    background: rgba(150, 191, 176, 0.5);
+    transition: background 0.3s;
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
+}
+
+header ul a:hover {
+    background-clip: padding-box;
+    cursor: pointer;
+    background: rgba(150, 191, 176, 0.75);
+    transition: background 0.3s;
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
 }
 
 #username {
-    position: relative;
+    position: absolute;
     margin: 15px;
     text-align: right;
-    top: -5em;
+    top: 0;
+    right: 0;
     color: rgb(67, 67, 67);
 }
 
-#username a {
+#username a, #lesson_info a {
     color: rgba(230, 53, 53, 0.5);
     text-decoration: none;
     transition: color 0.3s;
@@ -58,12 +89,19 @@ header li {
     -moz-transition: color .3s;
 }
 
-#username a:hover {
+#username a:hover , #lesson_info a:hover{
     color: rgb(230, 53, 53);
     text-decoration: underline;
     transition: color 0.3s;
     -webkit-transition: color .3s;
     -moz-transition: color .3s;
+}
+
+#main {
+    padding: 0;
+    height: calc(100% - 125px);
+    background: url("background.jpeg");
+    z-index: -1;
 }
 
 #container {
@@ -72,25 +110,107 @@ header li {
     background: rgba(173, 173, 173, 0.76);
 }
 
-#main {
-    padding: 0;
-    height: calc(100% - 190px);
-    max-height: inherit;
-    background: url("background.jpeg");
-    z-index: -1;
+.page_container {
+    display: flex;
+    height: inherit;
+}
 
-    /*    border: solid;*/
+h2 {
+    text-align: center;
+    padding: 5px 0 0 0;
+    margin: 0;
+    color: rgb(74, 88, 83)
 }
 
 .page {
-    margin: 2em 5em;
-    height: 100%;
+    margin: 2em auto;
+    height: 80%;
+    min-height: 540px;
+    width: 30%;
+    min-width: 450px;
+    display: inline;
     float: left;
 }
 
-.page h3 {
+.home_page {
+    margin: 2em auto;
+    padding: 0;
+    height: 70%;
+    min-height: 200px;
+    width: 30%;
+    min-width: 450px;
+    display: inline;
+    float: left;
+    overflow: scroll;
+}
+
+#about {
+    margin: 50px 5px 5px 8px;
+    padding: 5px;
+    color: rgb(65, 65, 65);
+    border-top: solid 2px rgb(65, 65, 65);
+    background: rgba(65, 65, 65, 0.20);
+    text-align: justify;
+}
+
+.page h3, .home_page h3 {
     margin: 5px 5px 5px 8px;
-    color: rgb(65, 65, 65)
+    color: rgb(65, 65, 65);
+}
+
+#booked_session {
+    margin: 0;
+    padding-top: 5px;
+    border-bottom: 1px solid;
+}
+
+#booked_message {
+    text-align: center;
+    width: 100%;
+}
+
+.home_page #user_info {
+    font-weight: bold;
+    font-size: 13px;
+    height: 305px;
+    width: 90%;
+    margin: 10px 5px 5px 8px;
+    padding: 10px;
+    color: rgb(85, 85, 85);
+    border: 1.5px solid rgb(85, 85, 85);
+    border-radius: 10px;
+    background: rgba(209, 232, 230, 0.63);
+}
+
+.home_page #lesson_info {
+    font-weight: bold;
+    font-size: 15px;
+    height: 160px;
+    width: 90%;
+    margin: 10px 5px 5px 8px;
+    padding: 10px;
+    color: rgb(85, 85, 85);
+    border: 1.5px solid rgb(85, 85, 85);
+    border-radius: 10px;
+    background: rgba(209, 232, 230, 0.63);
+}
+
+.home_page #lesson_info p {
+    margin: 5px auto;
+    font-size: 100%;
+    float: left;
+    width: 50%;
+}
+
+.home_page #user_info p {
+    margin: 10px auto;
+    font-size: 100%;
+    float: left;
+    width: 50%;
+}
+
+#user_fields, #lesson_fields{
+    color: rgb(47, 78, 68);
 }
 
 .page a {
@@ -109,15 +229,91 @@ header li {
     -moz-transition: color .3s;
 }
 
+#home {
+    margin-top: 1em;
+    align-self: center;
+}
+
+#table {
+    width: 60%;
+}
+
+table {
+    text-align: left;
+    width: 100%;
+    height 100%;
+    border: 1.5px solid rgb(85, 85, 85);
+    border-collapse: collapse;
+    background: rgba(195, 222, 212, 0.63);
+    vertical-align: middle;
+}
+
+tr:hover {
+    background: rgba(195, 222, 212, 0.75);
+}
+
+th {
+    height: auto;
+    padding: 3px 5px;
+    color: rgb(47, 78, 68);
+    width: 20%;
+    border-bottom: solid rgb(85, 85, 85);
+    background: rgba(195, 222, 212, 0.75);
+}
+
+td {
+    padding: 3px;
+    border-bottom: 1px solid rgb(85, 85, 85);
+    color: rgb(95, 95, 95);
+    height: auto;
+}
+
+#book {
+    text-align: center;
+}
+
+#book a:hover {
+    color: rgb(38, 183, 144);
+}
+
+.message {
+
+    padding: 10px 10px 5px 8px;
+    font-weight: bold;
+    color: rgb(71, 92, 121);
+}
+
+.error {
+    padding: 10px 10px 5px 10px;
+    color: rgb(154, 27, 27);
+    font-weight: bold;
+
+}
+
+.error ul {
+    list-style-type: square;
+    font-weight: 100;
+    padding: 10px 30px;
+    border: solid;
+    border-radius: 5px;
+    width: 50%;
+}
+
+form {
+    height: auto;
+    width: auto;
+}
+
 input {
     margin: 5px;
     padding: 10px;
-    width: 200px;
+    min-width: 170px;
+    width: 40%;
     border: solid 4px rgba(124, 240, 255, 0);
     border-radius: 10px;
     font-family: inherit;
     font-weight: 900;
-    font-size: 15px;
+    font-size: 80%;
     background: rgba(168, 168, 168, 0.9);
     transition: background 0.3s;
     -webkit-transition: background .3s;
@@ -131,22 +327,6 @@ input:hover {
     -moz-transition: background .3s;
 }
 
-input::-webkit-input-placeholder {
-    color: rgb(95, 95, 95) !important;
-}
-
-input:-moz-placeholder {
-    color: rgb(95, 95, 95) !important;
-}
-
-input::-moz-placeholder {
-    color: rgb(95, 95, 95) !important;
-}
-
-input:-ms-input-placeholder {
-    color: rgb(95, 95, 95) !important;
-}
-
 input[type="submit"] {
     width: 100px;
     transition: background 0.3s;
@@ -156,10 +336,27 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background: rgb(100, 100, 100);
+    font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
     -webkit-transition: background .3s;
     -moz-transition: background .3s;
+}
+
+input::-webkit-input-placeholder {
+    color: rgb(95, 95, 95);
+}
+
+input:-moz-placeholder {
+    color: rgb(95, 95, 95);
+}
+
+input::-moz-placeholder {
+    color: rgb(95, 95, 95);
+}
+
+input:-ms-input-placeholder {
+    color: rgb(95, 95, 95);
 }
 
 footer {
@@ -173,6 +370,7 @@ footer {
     background: rgb(195, 222, 212);
     vertical-align: top;
     font-family: 'Adamina', serif;
+    border-top: solid 5px rgb(150, 191, 176);
 }
 
 footer a {
@@ -190,8 +388,148 @@ footer img {
 footer p {
     display: inline-block;
     vertical-align: middle;
-    font-size: 10px;
+    font-size: 8px;
 }
 
 
-@media(max-width: 500px) {}
+@media screen and (max-width: 1100px) {
+    html {
+        display: flex;
+        min-height: 400px;
+        min-width: 600px;
+    }
+
+    header h1 {
+        padding: 5px;
+        font-size: 1.75em;
+    }
+
+    header ul {
+        font-size: 0.8em;
+        border-bottom: solid 3px rgb(150, 191, 176);
+    }
+
+    header ul a {
+        padding: 5px 0;
+        margin: 5px;
+    }
+
+    #username {
+        position: absolute;
+        font-size: 0.75em;
+        margin: 7.5px;
+    }
+
+    #main {
+        height: calc(100% - 60px);
+    }
+
+    h2 {
+        font-size: 1.25em;
+        padding: 2.5px 0 0 0;
+    }
+
+    .page {
+        margin: 1em auto;
+        height: 80%;
+        min-height: 400px;
+        width: 30%;
+        min-width: 300px;
+        display: inline;
+        float: left;
+    }
+
+    .home_page {
+        margin: 1em auto;
+        height: 70%;
+        min-height: 400px;
+        width: 30%;
+        min-width: 300px;
+        display: inline;
+        float: left;
+        overflow: scroll;
+    }
+
+
+    .page h3, .home_page h3 {
+        font-size: 1em;
+    }
+
+    #booked_session {
+        margin: 0;
+        padding-top: 5px;
+        border-bottom: 1px solid;
+    }
+
+    #booked_message {
+        text-align: center;
+        width: 100%;
+    }
+
+    .home_page #user_info {
+        font-size: 9.5px;
+        height: 190px;
+        width: 90%;
+        margin: 5px 5px 5px 8px;
+    }
+
+    .home_page #lesson_info {
+        font-size: 9.5px;
+        height: 110px;
+        width: 90%;
+        margin: 5px 5px 5px 8px;
+    }
+
+    .home_page #lesson_info p {
+        margin: 5px auto;
+    }
+
+    .home_page #user_info p {
+        margin: 5px auto;
+    }
+
+    #user_fields, #lesson_fields{
+        color: rgb(47, 78, 68);
+    }
+
+    #home {
+        margin-top: 1em;
+        align-self: center;
+    }
+
+    #lessons {
+        margin: 2em auto;
+        padding: 10px 20px;
+        height: 70%;
+        min-height: 500px;
+        width: 40%;
+        min-width: 450px;
+    }
+
+    #table {
+        width: 60%;
+    }
+
+    table {
+        font-size: 0.75em;
+    }
+
+    th {
+        padding: 2px 5px;
+        width: 20%;
+    }
+
+    .message {
+        padding: 5px 5px 2.5px 4px;
+    }
+
+    .error {
+        padding: 5px 5px 2.5px 5px;
+        font-size: 0.8em;
+
+    }
+
+    footer {
+        padding: 0;
+    }
+}

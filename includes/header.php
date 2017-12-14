@@ -6,17 +6,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial scale=1">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("ul a").each(function(){
+                if (this.href == document.URL) {
+                    $(this).css("background" , "rgb(150, 191, 176)");
+                }
+            });
+        });
+    </script>
     <link href="https://fonts.googleapis.com/css?family=Adamina" rel="stylesheet">
     <link rel="stylesheet" href="includes/styles.css">
+
     <title>Bright Tutors</title>
 </head>
 
 <body>
     <header>
-        <h1>Bright Tutors</h1>
-        <div id="username">Welcome Alireza!<a href="logout.php"> logout</a></div>
+        <a href= "<?php echo create_url('index.php'); ?>"><h1>Bright Tutors</h1></a>
+
+        <?php
+
+        if(isset($_SESSION["first_name"])) {
+            echo "<div id=\"username\">Hello " . "{$_SESSION["first_name"]}" . "! <a href=\"logout.php\" onclick=\"return confirm('Are you sure?')\">logout</a></div>";
+        } else {
+            echo "<div id=\"username\">Please log in <a href=\"login.php\"> here</a></div>";
+        }
+
+        echo "<ul>";
+        if(isset($_SESSION["user_id"])) {
+            echo "<a href=\"" . create_url('index.php') . "\">
+                <li>Home</li>
+            </a>
+            <a href=\"" . create_url('lessons.php') . "\">
+                <li>Lessons</li>
+            </a>";
+        }
+        echo "</ul>";
+
+        ?>
+
+<!--
         <ul>
-            <li><a>Home</a></li>
-            <li><a>Lessons</a></li>
+            <a href="<?php echo create_url('index.php'); ?>">
+                <li>Home</li>
+            </a>
+            <a href="<?php echo create_url('lessons.php'); ?>">
+                <li>Lessons</li>
+            </a>
         </ul>
+-->
     </header>

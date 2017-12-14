@@ -9,6 +9,11 @@
 
 
 <?php
+
+if(logged_in()) {
+    redirect_to(create_url("index.php"));
+}
+
 // Process form
 if(isset($_POST["submit"])) {
 
@@ -20,20 +25,19 @@ if(isset($_POST["submit"])) {
     $fields_with_max_length = array("first_name" => 15, "last_name" => 15, "email" => 40, "postcode" => 35, "city" => 20, "street_name" => 25, "house_number" => 4);
     validate_max_length ($fields_with_max_length);
 
-    //validate email
-    //check letters and whitespace only for first and last name
-    // other selection criteria??
+    check_user_exists($_POST["postcode"]);
+
     if(empty($errors)) {
-// IMPORTANT WHAT IF USER ALREADY EXISTS //
+
         // Prepare user input for submission
-        $firstName      = mysql_prep($_POST["first_name"]);
-        $lastName       = mysql_prep($_POST["last_name"]);
+        $firstName      = mysql_prep(ucfirst($_POST["first_name"]));
+        $lastName       = mysql_prep(ucfirst($_POST["last_name"]));
         $email          = mysql_prep($_POST["email"]);
         $password       = $_POST["password"];
         $hashed_pass    = password_hash($password, PASSWORD_BCRYPT);
-        $postcode       = mysql_prep($_POST["postcode"]);
-        $city           = mysql_prep($_POST["city"]);
-        $streetName     = mysql_prep($_POST["street_name"]);
+        $postcode       = strtoupper(str_replace(" ", "", mysql_prep($_POST["postcode"])));
+        $city           = mysql_prep(ucfirst($_POST["city"]));
+        $streetName     = mysql_prep(ucwords($_POST["street_name"]));
         $houseNumber    = mysql_prep($_POST["house_number"]);
         $phoneNumber    = mysql_prep($_POST["phone_number"]);
 
@@ -63,7 +67,7 @@ if(isset($_POST["submit"])) {
         if($result_users && $result_personal_details) {
             // Success
             $_SESSION["message"] = "Registration Successful!";
-//IMPORTANT redirect_to("register.php"); //
+            redirect_to("login.php");
         } else {
             // Failed
             $_SESSION["message"] = "Registration Failed!";
@@ -99,22 +103,26 @@ if(isset($_POST["submit"])) {
 
 <div id="main">
     <div id="container">
+        <div class="page_container">
         <div class="page">
             <?php echo message(); ?>
-            <?php echo display_form_errors($errors); ?>
             <form action="register.php" method="post">
                 <h3>Register</h3>
-                <input type="text" name="first_name" value="<?php echo ($firstName)?>" placeholder="First Name*">
-                <input type="text" name="last_name" value="<?php echo $lastName; ?>" placeholder="Last Name"><br/>
-                <input type="email" name="email" value="<?php echo $email; ?>" placeholder="Email*">
-                <input type="password" name="password" value="<?php echo $password;?>" placeholder="Password*"><br/>
-                <input type="tel" name="phone_number" value="<?php echo $phoneNumber; ?>" size="11" placeholder="Phone Number*"><br/>
-                <input type="text" name="house_number" value="<?php echo $houseNumber; ?>" placeholder="House Number"><br/>
-                <input type="text" name="street_name" value="<?php echo $streetName; ?>" placeholder="Street*"><br/>
-                <input type="text" name="city" value="<?php echo $city; ?>" placeholder="City"><br/>
-                <input type="text" name="postcode" value="<?php echo $postcode;?>" placeholder="Postcode*"><br/>
+                <input type="text" name="first_name" value="<?php echo htmlentities($firstName)?>" placeholder="First Name*">
+                <input type="text" name="last_name" value="<?php echo htmlentities($lastName); ?>" placeholder="Last Name"><br/>
+                <input type="email" name="email" value="<?php echo htmlentities($email); ?>" placeholder="Email*">
+                <input type="password" name="password" value="<?php echo htmlentities($password);?>" placeholder="Password*"><br/><br/>
+                <input type="tel" name="phone_number" value="<?php echo htmlentities($phoneNumber); ?>" size="11" placeholder="Phone Number*"><br/>
+                <input type="text" name="house_number" value="<?php echo htmlentities($houseNumber); ?>" placeholder="House Number"><br/>
+                <input type="text" name="street_name" value="<?php echo htmlentities($streetName); ?>" placeholder="Street*"><br/>
+                <input type="text" name="city" value="<?php echo htmlentities($city); ?>" placeholder="City"><br/>
+                <input type="text" name="postcode" value="<?php echo htmlentities($postcode);?>" placeholder="Postcode*"><br/>
                 <input type="submit" name="submit" value="Register">
             </form>
+        </div>
+        <div class="page">
+        <?php echo display_form_errors($errors); ?>
+        </div>
         </div>
     </div>
 </div>
