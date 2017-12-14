@@ -34,6 +34,10 @@ header h1 {
     color: rgb(67, 67, 67);
 }
 
+header a {
+    text-decoration: none;
+}
+
 header ul {
     display: table;
     font-size: 1em;
@@ -53,7 +57,7 @@ header ul a {
     display: table-cell;
     padding: 10px 0;
     margin: 10px;
-    background: rgb(123, 224, 201);
+    background: rgba(150, 191, 176, 0.5);
     transition: background 0.3s;
     -webkit-transition: background .3s;
     -moz-transition: background .3s;
@@ -62,7 +66,7 @@ header ul a {
 header ul a:hover {
     background-clip: padding-box;
     cursor: pointer;
-    background: rgb(150, 191, 176);
+    background: rgba(150, 191, 176, 0.75);
     transition: background 0.3s;
     -webkit-transition: background .3s;
     -moz-transition: background .3s;
@@ -77,7 +81,7 @@ header ul a:hover {
     color: rgb(67, 67, 67);
 }
 
-#username a {
+#username a, #lesson_info a {
     color: rgba(230, 53, 53, 0.5);
     text-decoration: none;
     transition: color 0.3s;
@@ -85,7 +89,7 @@ header ul a:hover {
     -moz-transition: color .3s;
 }
 
-#username a:hover {
+#username a:hover , #lesson_info a:hover{
     color: rgb(230, 53, 53);
     text-decoration: underline;
     transition: color 0.3s;
@@ -108,6 +112,7 @@ header ul a:hover {
 
 .page_container {
     display: flex;
+    height: inherit;
 }
 
 h2 {
@@ -127,9 +132,30 @@ h2 {
     float: left;
 }
 
-.page h3 {
+.home_page {
+    margin: 2em auto;
+    padding: 0;
+    height: 70%;
+    min-height: 200px;
+    width: 30%;
+    min-width: 450px;
+    display: inline;
+    float: left;
+    overflow: scroll;
+}
+
+#about {
+    margin: 50px 5px 5px 8px;
+    padding: 5px;
+    color: rgb(65, 65, 65);
+    border-top: solid 2px rgb(65, 65, 65);
+    background: rgba(65, 65, 65, 0.20);
+    text-align: justify;
+}
+
+.page h3, .home_page h3 {
     margin: 5px 5px 5px 8px;
-    color: rgb(65, 65, 65)
+    color: rgb(65, 65, 65);
 }
 
 #booked_session {
@@ -143,11 +169,11 @@ h2 {
     width: 100%;
 }
 
-.page #user_info {
+.home_page #user_info {
     font-weight: bold;
-    font-size: 15px;
-    height: 320px;
-    width: 100%;
+    font-size: 13px;
+    height: 305px;
+    width: 90%;
     margin: 10px 5px 5px 8px;
     padding: 10px;
     color: rgb(85, 85, 85);
@@ -156,14 +182,34 @@ h2 {
     background: rgba(209, 232, 230, 0.63);
 }
 
-.page #user_info p {
+.home_page #lesson_info {
+    font-weight: bold;
+    font-size: 15px;
+    height: 160px;
+    width: 90%;
+    margin: 10px 5px 5px 8px;
+    padding: 10px;
+    color: rgb(85, 85, 85);
+    border: 1.5px solid rgb(85, 85, 85);
+    border-radius: 10px;
+    background: rgba(209, 232, 230, 0.63);
+}
+
+.home_page #lesson_info p {
+    margin: 5px auto;
+    font-size: 100%;
+    float: left;
+    width: 50%;
+}
+
+.home_page #user_info p {
     margin: 10px auto;
     font-size: 100%;
     float: left;
     width: 50%;
 }
 
-.page #user_info #user_fields {
+#user_fields, #lesson_fields{
     color: rgb(47, 78, 68);
 }
 
@@ -186,15 +232,6 @@ h2 {
 #home {
     margin-top: 1em;
     align-self: center;
-}
-
-#lessons {
-    margin: 2em auto;
-    padding: 10px 20px;
-    height: 70%;
-    min-height: 500px;
-    width: 40%;
-    min-width: 450px;
 }
 
 #table {
@@ -355,7 +392,7 @@ footer p {
 }
 
 
-@media screen and (max-width: 1100px) and (max-height: 800px) {
+@media screen and (max-width: 1100px) {
     html {
         display: flex;
         min-height: 400px;
@@ -402,7 +439,19 @@ footer p {
         float: left;
     }
 
-    .page h3 {
+    .home_page {
+        margin: 1em auto;
+        height: 70%;
+        min-height: 400px;
+        width: 30%;
+        min-width: 300px;
+        display: inline;
+        float: left;
+        overflow: scroll;
+    }
+
+
+    .page h3, .home_page h3 {
         font-size: 1em;
     }
 
@@ -417,18 +466,30 @@ footer p {
         width: 100%;
     }
 
-    .page #user_info {
-        font-size: 10px;
+    .home_page #user_info {
+        font-size: 9.5px;
         height: 190px;
         width: 90%;
         margin: 5px 5px 5px 8px;
     }
 
-    .page #user_info p {
+    .home_page #lesson_info {
+        font-size: 9.5px;
+        height: 110px;
+        width: 90%;
+        margin: 5px 5px 5px 8px;
+    }
+
+    .home_page #lesson_info p {
         margin: 5px auto;
-        font-size: 100%;
-        float: left;
-        width: 50%;
+    }
+
+    .home_page #user_info p {
+        margin: 5px auto;
+    }
+
+    #user_fields, #lesson_fields{
+        color: rgb(47, 78, 68);
     }
 
     #home {

@@ -6,15 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial scale=1">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("ul a").each(function(){
+                if (this.href == document.URL) {
+                    $(this).css("background" , "rgb(150, 191, 176)");
+                }
+            });
+        });
+    </script>
     <link href="https://fonts.googleapis.com/css?family=Adamina" rel="stylesheet">
     <link rel="stylesheet" href="includes/styles.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
     <title>Bright Tutors</title>
 </head>
 
 <body>
     <header>
-        <h1>Bright Tutors</h1>
+        <a href= "<?php echo create_url('index.php'); ?>"><h1>Bright Tutors</h1></a>
 
         <?php
 

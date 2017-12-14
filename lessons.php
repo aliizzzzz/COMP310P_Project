@@ -15,17 +15,6 @@
                     ?>
                 </table>
             </div>
-            <!--
-            <div class="page">
-                <div id="table">
-                <table>
-                    <?php
-//                        print_teacher_info();
-                    ?>
-                </table>
-                </div>
-            </div>
--->
         </div>
     </div>
 </div>

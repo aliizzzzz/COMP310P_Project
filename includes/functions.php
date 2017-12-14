@@ -28,7 +28,7 @@
                 $output .= "</p>\n";
             }
             $output .= "</div>\n";
-        echo $output;
+            echo $output;
     }
 
     function fetch_session_info() {
@@ -102,7 +102,7 @@
         global $connection;
 
         $query  = "INSERT INTO bookings (user_id, session_id) ";
-        $query .= "VALUES ({$user_id},{$user_id})";
+        $query .= "VALUES ({$user_id},{$session_id})";
 
         $result = mysqli_query($connection,$query);
         confirm_query($result);
@@ -114,7 +114,44 @@
         $query  = "SELECT s.id, co.course_name as course, s.level, c.cost, ";
         $query .= "s.date FROM sessions s JOIN courses co ";
         $query .= "ON co.id = s.course_id JOIN cost c ON ";
-        $query .= "s.level = c.level ORDER BY s.date ASC";
+        $query .= "s.level = c.level JOIN bookings b ON ";
+        $query .= "b.session_id = s.id WHERE b.user_id = {$user_id}";
+
+        $booked_sessions_info = mysqli_query($connection, $query);
+        confirm_query($booked_sessions_info);
+
+            while($booked_session_info_array = mysqli_fetch_assoc($booked_sessions_info)){
+            $output = "<div id=\"lesson_info\">\n";
+                foreach ($booked_session_info_array as $field => $data) {
+                    if ($field == "id") {
+                        continue;
+                    }
+                    $output .= "<p id=\"lesson_fields\">" . fieldname_as_text($field);
+                    $output .= "</p>";
+                    $output .= "<p>" . $data;
+                    $output .= "</p>\n";
+                }
+                $output .= "<p></p>";
+                $output .= "<p><a href=\"delete_session.php?first_name=" . urlencode($_SESSION["first_name"]) . "&session_id={$booked_session_info_array["id"]}\">Cancel</a></p>";
+                $output .= "</div>\n";
+                echo $output;
+            }
+    }
+
+    function session_booked_presence($user_id) {
+        global $connection;
+
+        $query  = "SELECT * FROM bookings WHERE ";
+        $query .= "user_id = {$user_id}";
+
+        $result = mysqli_query($connection, $query);
+        confirm_query($result);
+
+        if (mysqli_num_rows($result) >= 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function print_booked_session($session_id) {
@@ -137,6 +174,7 @@
             $output .= "<p>" . $date ."</p>";
             $output .= "<p>" . "&pound;" .$session["cost"] ."</p>";
         }
+        $output .= "<p>You can view your booked sessions in your home page</p>";
         echo $output;
     }
 
@@ -164,6 +202,34 @@
 
     function fetch_booked_sessions($user_id) {
 
+    }
+
+    function booking_exists($session_id){
+        global $connection;
+        global $errors;
+        $query  = "SELECT user_id FROM bookings ";
+        $query .= "WHERE session_id = '{$session_id}'";
+
+        $result = mysqli_query($connection, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+            $errors["booking"] = "You have already booked for this session";
+            return true;
+        } else {
+            return false;
+        }
+        mysqli_free_result($result);
+    }
+
+    // Delete booked session
+    function delete_session($user_id, $session_id) {
+        global $connection;
+
+        $query  = "DELETE FROM bookings WHERE ";
+        $query .= "user_id = {$user_id} AND session_id = {$session_id}";
+
+        $result = mysqli_query($connection, $query);
+        confirm_query($result);
     }
 
     // Form validation functions
@@ -209,8 +275,6 @@
         $query .= "WHERE postcode = '{$db_compatible_postcode}'";
 
         $result = mysqli_query($connection, $query);
-
-        $exitin_postcode = mysqli_fetch_assoc($result);
 
         if (mysqli_num_rows($result) > 0) {
             $errors["user"] = "User already exists";

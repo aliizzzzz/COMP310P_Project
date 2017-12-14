@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2017 at 05:16 PM
+-- Generation Time: Dec 14, 2017 at 11:30 PM
 -- Server version: 5.7.20
 -- PHP Version: 7.1.7
 
@@ -22,7 +22,16 @@ SET time_zone = "+00:00";
 -- Database: `bright_tutors`
 --
 
+CREATE DATABASE IF NOT EXISTS `bright_tutors` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `bright_tutors`;
+
 -- --------------------------------------------------------
+
+--
+-- Create User: `ameghdadi`, Password: `adminalizz`
+--
+
+GRANT ALL PRIVILEGES ON bright_tutors.* To 'ameghdadi'@'localhost' IDENTIFIED BY 'adminalizz';
 
 --
 -- Table structure for table `bookings`
@@ -101,15 +110,7 @@ CREATE TABLE `personal_details` (
 --
 
 INSERT INTO `personal_details` (`postcode`, `city`, `street_name`, `house_number`, `phone_number`) VALUES
-('B330PU', 'Birmingham', 'Ragnall Ave', '12', '07700900367'),
-('B798AW', 'Tamworth', 'Borough Rd', '42', '07700900672'),
-('BA10FH', 'Bath', 'Spring Gardens Rd', '1', '07700900832'),
-('CT117SQ', 'Ramsgate', 'Margate Rd', '90', '07700900937'),
-('DE451PY', 'Bakewell', 'John Bank Ln', '5', '07700900486'),
-('HA90FL', 'London', 'Lakeside Way', '519', '07445269099'),
-('N29FE', 'London', '66 Lankaster Gardens', '4', '07445269099'),
-('S728AY', 'Barnsley', 'Pontefract Rd', '52', '07700900052'),
-('SW98QJ', 'London', 'Mansion Cl', '7', '07700900454');
+('N29FE', 'London', '66 Lankaster Gardens', '4', '07445269099');
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,12 @@ INSERT INTO `sessions` (`id`, `course_id`, `level`, `date`) VALUES
 (7, 309, 'A-levels', '2017-12-17'),
 (8, 304, 'GCSE', '2017-12-16'),
 (9, 301, 'KS2', '2017-12-28'),
-(10, 308, 'KS3', '2017-12-24');
+(10, 308, 'KS3', '2017-12-24'),
+(11, 308, 'A-levels', '2018-01-19'),
+(12, 303, 'KS1', '2018-01-31'),
+(13, 303, 'GCSE', '2018-02-15'),
+(14, 302, 'A-levels', '2018-03-14'),
+(15, 309, 'KS1', '2018-03-25');
 
 -- --------------------------------------------------------
 
@@ -150,22 +156,21 @@ CREATE TABLE `teachers` (
   `id` int(10) UNSIGNED NOT NULL,
   `first_name` varchar(32) NOT NULL,
   `last_name` varchar(32) NOT NULL,
-  `email` varchar(32) NOT NULL,
-  `postcode` varchar(16) NOT NULL
+  `email` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `email`, `postcode`) VALUES
-(101, 'Bruce', 'Wayne', 'bruce.wayne@gmail.com', 'SW98QJ'),
-(102, 'Peter', 'Parker', 'peter.parker@yahoo.com', 'CT117SQ'),
-(103, 'Tony', 'Stark', 'tony.stark@gmail.com', 'BA10FH'),
-(104, 'Ali', 'Meghdadi', 'ali.meghdadi@gmail.com', 'B798AW'),
-(105, 'Allen', 'Walker', 'allen.walker@ymail.com', 'DE451PY'),
-(106, 'Edward', 'Elrick', 'ed.el@gmail.com', 'S728AY'),
-(107, 'James', 'Gordon', 'jim.g@gmail.com', 'B330PU');
+INSERT INTO `teachers` (`id`, `first_name`, `last_name`, `email`) VALUES
+(101, 'Bruce', 'Wayne', 'bruce.wayne@gmail.com'),
+(102, 'Peter', 'Parker', 'peter.parker@yahoo.com'),
+(103, 'Tony', 'Stark', 'tony.stark@gmail.com'),
+(104, 'Ali', 'Meghdadi', 'ali.meghdadi@gmail.com'),
+(105, 'Allen', 'Walker', 'allen.walker@ymail.com'),
+(106, 'Edward', 'Elrick', 'ed.el@gmail.com'),
+(107, 'James', 'Gordon', 'jim.g@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -187,7 +192,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `hashed_password`, `postcode`) VALUES
-(5, 'Alireza', 'Meghdadi', 'alireza.meghdadi@gmail.com', '$2y$10$dWIYMgzODUUJsUTLRH70lOMj246FljYGiReEgd1JlGZvOgplv/Jvu', 'N29FE');
+(1, 'Alireza', 'Meghdadi', 'alireza.meghdadi@gmail.com', '$2y$10$rwFdyaTY5LsdYFGvhqN3zONOqBHA/ntWfJEBciqMaq.x64Oa33uxm', 'N29FE');
 
 --
 -- Indexes for dumped tables
@@ -232,7 +237,6 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `teachers`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `postcode` (`postcode`) USING BTREE,
   ADD UNIQUE KEY `email_address` (`email`);
 
 --
@@ -251,13 +255,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -282,12 +286,6 @@ ALTER TABLE `courses`
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sessions_ibfk_3` FOREIGN KEY (`level`) REFERENCES `cost` (`level`);
-
---
--- Constraints for table `teachers`
---
-ALTER TABLE `teachers`
-  ADD CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`postcode`) REFERENCES `personal_details` (`postcode`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

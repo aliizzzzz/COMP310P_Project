@@ -62,6 +62,7 @@ if (isset($_POST["submit"])) {
         <div class="page">
             <h3>Not a member yet? Register <a href="register.php">here</a></h3>
             <?php echo display_form_errors($errors); ?>
+            <p id = "about">We, at Bright Tutors, provide group tutoring sessions for all students. Our sessions take place at 8:00 am of the designated days. We believe we posses the ability to shape the bright minds of the future!</p>
         </div>
         </div>
     </div>
