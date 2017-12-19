@@ -207,6 +207,7 @@ h2 {
     font-size: 100%;
     float: left;
     width: 50%;
+    height: 1.5em;
 }
 
 #user_fields, #lesson_fields{
