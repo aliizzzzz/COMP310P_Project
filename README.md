@@ -1,4 +1,4 @@
-# COMP310P_GroupAD
+# COMP310P_Project
 Web Development 17/18 UCL module
 code for "bright_tutors", an event management system.
 
